@@ -1,4 +1,4 @@
-rootProject.name = 'book-shelf'
+rootProject.name = 'books-client'
 
 includeBuild 'books-soap'
 includeBuild 'books-client'

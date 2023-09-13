@@ -1,0 +1,259 @@
+<xs:schema
+        xmlns:xs="http://www.w3.org/2001/XMLSchema"
+
+        xmlns:tns="https://spring.io/guides/gs-producing-web-service"
+        targetNamespace="https://spring.io/guides/gs-producing-web-service"
+
+        elementFormDefault="qualified"
+>
+    <!--Add new book-->
+    <xs:element name="addBookRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="newBook" type="tns:newBookXsd"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="addBookResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="book" type="tns:bookXsd"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--Add new author-->
+    <xs:element name="addAuthorRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="newAuthor" type="tns:newAuthorXsd"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="addAuthorResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="author" type="tns:authorXsd"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--Add new genre-->
+    <xs:element name="addGenreRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="genre" maxOccurs="unbounded" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="addGenreResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="genres" type="tns:genreXsdList"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--Get all books from database-->
+    <xs:element name="getAllBooksRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getAllBooksResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="books" type="tns:bookXsdList"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--Get book by name-->
+    <xs:element name="getBookByNameRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getBookByNameResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="book" type="tns:bookXsd"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--Get book by id-->
+    <xs:element name="getBookByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getBookByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="book" type="tns:bookXsd"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--Get all authors from database-->
+    <xs:element name="getAllAuthorsRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getAllAuthorsResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="authors" type="tns:authorXsdList"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--Get authors by name or last_name database-->
+    <xs:element name="getAuthorByNameRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" minOccurs="0" type="xs:string"/>
+                <xs:element name="last_name" minOccurs="0" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getAuthorByNameResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="author" type="tns:authorXsd"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--Get authors by id database-->
+    <xs:element name="getAuthorByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getAuthorByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="author" type="tns:authorXsd"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--Get all genres-->
+    <xs:element name="getAllGenresRequest">
+        <xs:complexType>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getAllGenresResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="genre" maxOccurs="unbounded" type="tns:genreXsd"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <!--Get collection of books by genres-->
+    <xs:element name="getBookByGenreRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="genre" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    <xs:element name="getBookByGenreResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="genre"/>
+                <xs:element name="books" type="tns:bookXsdList"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="bookXsd">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="published" type="xs:int"/>
+            <xs:element name="authors" type="tns:authorXsdShortList"/>
+            <xs:element name="genres" type="tns:genreXsdList"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="authorXsd">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="last_name" type="xs:string"/>
+            <xs:element name="father_name" type="xs:string"/>
+            <xs:element name="birth_day" type="xs:string"/>
+            <xs:element name="dead_day" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="books" type="tns:bookXsdShortList"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="bookXsdShortList">
+        <xs:sequence>
+            <xs:element name="book" maxOccurs="unbounded" type="tns:bookXsdShort"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="bookXsdList">
+        <xs:sequence>
+            <xs:element name="book" maxOccurs="unbounded" type="tns:bookXsd"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="authorXsdList">
+        <xs:sequence>
+            <xs:element name="author" maxOccurs="unbounded" type="tns:authorXsd"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="authorXsdShortList">
+        <xs:sequence>
+            <xs:element name="author" maxOccurs="unbounded" type="tns:authorXsdShort"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="bookXsdShort">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="authorXsdShort">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="genreXsdList">
+        <xs:sequence>
+            <xs:element name="genre" maxOccurs="unbounded" type="tns:genreXsd"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="genreXsd">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="name" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="newBookXsd">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="published" type="xs:int"/>
+            <xs:element name="authors" type="tns:listIdsXsd"/>
+            <xs:element name="genres" type="tns:listIdsXsd"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="listIdsXsd">
+        <xs:sequence>
+            <xs:element name="id" maxOccurs="unbounded" type="xs:long"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="newAuthorXsd">
+        <xs:sequence>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="last_name" type="xs:string"/>
+            <xs:element name="father_name" type="xs:string"/>
+            <xs:element name="birth_day" type="xs:string"/>
+            <xs:element name="dead_day" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
