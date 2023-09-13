@@ -1,0 +1,36 @@
+version: '3.8'
+services:
+  books-client:
+    build: books-client
+    image: books-client-img
+    container_name: books-client-container
+    ports:
+      - "8081:8081"
+      - "9090:9090"
+    depends_on:
+      - soap
+    environment:
+      - BOOKS_SOAP_URL=http://soap:8080
+
+  soap:
+    build: books-soap
+    image: books-soap-img
+    container_name: books-soap-container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/books
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=root
+
+  db:
+    image: postgres:13.7-alpine
+    container_name: db_container
+    ports:
+      - "6541:5432"
+    environment:
+      - POSTGRES_DB=books
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
