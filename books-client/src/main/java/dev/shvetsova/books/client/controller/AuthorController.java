@@ -15,7 +15,7 @@ public class AuthorController {
     private final AuthorService service;
 
     @GetMapping
-    AuthorXsd getBookByName(@RequestParam String name,
+    AuthorXsd getAuthorByName(@RequestParam String name,
                             @RequestParam(required = false) String lastName) {
         return service.getAuthorByName(name, lastName);
     }
@@ -26,12 +26,12 @@ public class AuthorController {
     }
 
     @GetMapping("/all")
-    AuthorXsdList getAllBooks() {
+    AuthorXsdList getAllAuthors() {
         return service.getAllAuthors();
     }
 
     @PostMapping
-    AuthorXsd addBook(@RequestBody NewAuthorDto newAuthor) {
+    AuthorXsd addAuthor(@RequestBody NewAuthorDto newAuthor) {
         return service.addNewAuthor(newAuthor);
     }
 
